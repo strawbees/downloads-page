@@ -41,17 +41,6 @@ class StrawbeesDownloadElement extends BaseElement {
 			</div>
 		`
 	}
-	// connectedCallback() {
-	// 	if (!this.items) {
-	// 		this.items = []
-	// 	}
-	// 	this.render();
-	// 	this.renderDownloadLinks();
-	// }
-	// renderDownloadLinks() {
-	// 	let downloadLinks = this.shadowRoot.querySelector('.download-links')
-	// 	this.items.forEach((el) => downloadLinks.appendChild(el))
-	// }
 }
 
 export default StrawbeesDownloadElement
