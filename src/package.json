@@ -1,0 +1,16 @@
+{
+  "name": "@strawbees/download-page",
+  "version": "0.1.0",
+  "description": "Download page for strawbees.com",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "http-server -c-1 -p 8081",
+    "build": "echo 'build here'"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@webcomponents/custom-elements": "^1.2.1",
+    "http-server": "^0.11.1",
+    "platform": "^1.3.5"
+  }
+}
