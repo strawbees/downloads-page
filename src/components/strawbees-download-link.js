@@ -7,7 +7,7 @@ class StrawbeesDownloadItemElement extends BaseElement {
 	template() {
 		return `
 			<style>
-				:host {
+				#strawbees-download-link {
 					display: flex;
 					flex-direction: column;
 					align-items: center;
@@ -27,10 +27,12 @@ class StrawbeesDownloadItemElement extends BaseElement {
 					fill: rgb(153, 153, 153);
 				}
 			</style>
-			<div class="icon">${this.icon()}</div>
-			<div>${this.label()}</div>
-			<div>${this.architecture()}</div>
-			<div>${this.downloadButton()}</div>
+			<div id="strawbees-download-link">
+				<div class="icon">${this.icon()}</div>
+				<div>${this.label()}</div>
+				<div>${this.architecture()}</div>
+				<div>${this.downloadButton()}</div>
+			</div>
 
 		`
 	}

@@ -12,4 +12,6 @@ This page should have the least need for maintenance, therefore it will fetch al
 
 ## Build
 
-Minimal build is required. The steps should be restricted to concatenate and compress files.
+Minimal build should be required. The steps should be restricted to transpile for backward compatibility mode, concatenate and compress files.
+
+Dev environment should run from source without compilation on "modern browsers".

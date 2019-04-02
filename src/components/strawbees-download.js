@@ -7,7 +7,7 @@ class StrawbeesDownloadElement extends BaseElement {
 	template() {
 		return `
 			<style>
-				:host {
+				#strawbees-download {
 					display: flex;
 					flex-direction: column;
 					align-items: center;
@@ -32,12 +32,14 @@ class StrawbeesDownloadElement extends BaseElement {
 					justify-content: space-around;
 				}
 			</style>
-			<div class="header">
-				<h1><slot name="title" class="test"></slot></h1>
-				<p><slot name="description"></slot></p>
-			</div>
-			<div class="download-links">
-				<slot name="links"></slot>
+			<div id="strawbees-download">
+				<div class="header">
+					<h1><slot name="title" class="test"></slot></h1>
+					<p><slot name="description"></slot></p>
+				</div>
+				<div class="download-links">
+					<slot name="links"></slot>
+				</div>
 			</div>
 		`
 	}
