@@ -1,5 +1,6 @@
 import StrawbeesDownloadElement from './components/strawbees-download.js'
 import StrawbeesDownloadItemElement from './components/strawbees-download-link.js'
+import platform from './utils/platform.js'
 
 // Define custom elements
 customElements.define('strawbees-download', StrawbeesDownloadElement);
@@ -11,6 +12,9 @@ const WIN32 = 'win32'
 const DARWIN = 'darwin'
 const IA32 = 'ia32'
 const X64 = 'x64'
+
+// Current platform
+const currentPlatform = platform().node
 
 // Load json from url
 const loadJson = function(url) {
@@ -41,14 +45,23 @@ window.onload = function() {
 		loadJson(`${downloadPaths.darwin_x64}/latest.json`)
 	]).then((results) => {
 		if (linkWin32ia32) {
+			if (currentPlatform.platform == WIN32 && currentPlatform.arch == IA32) {
+				linkWin32ia32.setAttribute('selected', 'selected')
+			}
 			linkWin32ia32.setAttribute('version', results[0].version)
 			linkWin32ia32.setAttribute('link', `${downloadPaths.win32_ia32}/${results[0].installer.path}`)
 		}
 		if (linkWin32x64) {
+			if (currentPlatform.platform == WIN32 && currentPlatform.arch == X64) {
+				linkWin32x64.setAttribute('selected', 'selected')
+			}
 			linkWin32x64.setAttribute('version', results[0].version)
 			linkWin32x64.setAttribute('link', `${downloadPaths.win32_x64}/${results[1].installer.path}`)
 		}
 		if (linkDarwinx64) {
+			if (currentPlatform.platform == DARWIN && currentPlatform.arch == X64) {
+				linkDarwinx64.setAttribute('selected', 'selected')
+			}
 			linkDarwinx64.setAttribute('version', results[0].version)
 			linkDarwinx64.setAttribute('link', `${downloadPaths.darwin_x64}/${results[2].installer.path}`)
 		}

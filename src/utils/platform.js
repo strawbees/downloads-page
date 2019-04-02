@@ -1,4 +1,4 @@
-import platform from 'platform'
+import '../../node_modules/platform/platform.js'
 
 const parsedPlatform = JSON.parse(JSON.stringify(platform))
 parsedPlatform.node = {

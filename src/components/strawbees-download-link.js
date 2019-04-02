@@ -2,7 +2,7 @@ import BaseElement from './base-element.js'
 
 class StrawbeesDownloadItemElement extends BaseElement {
 	static get observedAttributes() {
-		return ['platform', 'arch', 'version', 'link'];
+		return ['platform', 'arch', 'version', 'link', 'selected'];
 	}
 	template() {
 		return `
@@ -15,8 +15,16 @@ class StrawbeesDownloadItemElement extends BaseElement {
 					margin: 0.5rem;
 					padding: 0.5em;
 					border: solid 0.05rem rgb(217, 217, 217);
-					color: rgb(153,153,153);
 					min-width: 170px;
+					color: rgb(153,153,153);
+					fill: rgb(153, 153, 153);
+					order: 0;
+				}
+				#strawbees-download-link.selected {
+					order: 1;
+					border-color: rgb(51, 51, 51);
+					color: rgb(51, 51, 51);
+					fill: rgb(51, 51, 51);
 				}
 				.icon {
 					width: 3rem;
@@ -25,7 +33,6 @@ class StrawbeesDownloadItemElement extends BaseElement {
 				.icon svg {
 					max-width: 100%;
 					max-height: 100%;
-					fill: rgb(153, 153, 153);
 				}
 				.download-button {
 					display: flex;
@@ -63,7 +70,7 @@ class StrawbeesDownloadItemElement extends BaseElement {
 					font-size: 0.8rem;
 				}
 			</style>
-			<div id="strawbees-download-link">
+			<div id="strawbees-download-link" class="${this.selected()}">
 				<div class="icon">${this.icon()}</div>
 				<div class="label">${this.label()}</div>
 				<div class="architecture">${this.architecture()}</div>
@@ -116,6 +123,13 @@ class StrawbeesDownloadItemElement extends BaseElement {
 			return this.loading()
 		} else {
 			return `<a class="download-button" href="${this.link()}" target="_blank">Download v${this.version()}</a>`
+		}
+	}
+	selected() {
+		if (this.get('selected')) {
+			return 'selected'
+		} else {
+			return ''
 		}
 	}
 	attributeChangedCallback(attrName, oldVal, newVal) {
