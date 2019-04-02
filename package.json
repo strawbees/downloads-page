@@ -6,8 +6,8 @@
     "private": "true",
     "scripts": {
         "start": "npm run serve-src",
-        "serve-src": "http-server -c-1 -p 8081",
-        "serve-dist": "http-server -c-1 -p 8081 dist",
+        "serve-src": "http-server -c-1",
+        "serve-dist": "http-server -c-1 dist",
         "build": "gulp"
     },
     "license": "MIT",

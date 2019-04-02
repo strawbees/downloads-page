@@ -24,6 +24,8 @@ const getDownloadPath = function(platform, arch) {
 }
 
 window.onload = function() {
+	let appEl = document.querySelector('#app')
+	appEl.style.display = 'flex';
 	// Select download link elements
 	let linkWin32ia32 = document.querySelector('strawbees-download-link[platform=win32][arch=ia32]')
 	let linkWin32x64 = document.querySelector('strawbees-download-link[platform=win32][arch=x64]')

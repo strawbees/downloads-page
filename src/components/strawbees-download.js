@@ -31,6 +31,11 @@ class StrawbeesDownloadElement extends BaseElement {
 					width: 100%;
 					justify-content: space-around;
 				}
+				@media (max-width: 650px) {
+					.download-links slot {
+						flex-direction: column;
+					}
+				}
 			</style>
 			<div id="strawbees-download">
 				<div class="header">

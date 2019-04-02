@@ -16,6 +16,7 @@ class StrawbeesDownloadItemElement extends BaseElement {
 					padding: 0.5em;
 					border: solid 0.05rem rgb(217, 217, 217);
 					color: rgb(153,153,153);
+					min-width: 170px;
 				}
 				.icon {
 					width: 3rem;
@@ -26,11 +27,46 @@ class StrawbeesDownloadItemElement extends BaseElement {
 					max-height: 100%;
 					fill: rgb(153, 153, 153);
 				}
+				.download-button {
+					display: flex;
+					flex-direction: row;
+					-webkit-box-align: center;
+					align-items: center;
+					-webkit-box-pack: center;
+					justify-content: center;
+					box-sizing: border-box;
+					cursor: pointer;
+					color: rgb(255, 255, 255);
+					fill: rgb(255, 255, 255);
+					background-color: rgb(57, 165, 0);
+					min-height: 2rem;
+					padding: 0.25rem 1rem;
+					border-radius: 2rem;
+					margin: 0.15rem;
+					transition: background-color 0.1s ease 0s;
+				}
+				.download-button:link,
+				.download-button:visited,
+				.download-button:active,
+				.download-button:hover {
+					text-decoration: none;
+					color: white;
+				}
+				.download-button:hover {
+					box-shadow: rgb(255, 223, 36) 0px 0px 0px 0.15rem;
+					color: rgb(255, 255, 255);
+					fill: rgb(255, 255, 255);
+					background-color: rgb(57, 165, 0);
+					outline: none;
+				}
+				.architecture {
+					font-size: 0.8rem;
+				}
 			</style>
 			<div id="strawbees-download-link">
 				<div class="icon">${this.icon()}</div>
-				<div>${this.label()}</div>
-				<div>${this.architecture()}</div>
+				<div class="label">${this.label()}</div>
+				<div class="architecture">${this.architecture()}</div>
 				<div>${this.downloadButton()}</div>
 			</div>
 
@@ -79,7 +115,7 @@ class StrawbeesDownloadItemElement extends BaseElement {
 		if (!this.link()) {
 			return this.loading()
 		} else {
-			return `<a href="${this.link()}" target="_blank">Download v${this.version()}</a>`
+			return `<a class="download-button" href="${this.link()}" target="_blank">Download v${this.version()}</a>`
 		}
 	}
 	attributeChangedCallback(attrName, oldVal, newVal) {
