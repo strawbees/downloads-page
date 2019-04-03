@@ -7,7 +7,7 @@ customElements.define('strawbees-download', StrawbeesDownloadElement);
 customElements.define('strawbees-download-link', StrawbeesDownloadItemElement);
 
 // Define API endpoints
-const CODE_BASE_URL = 'https://s3.amazonaws.com/strawbees-downloads-production/code-nwjs-build/versions'
+const CODE_BASE_URL = 'https://s3.amazonaws.com/strawbees-downloads-stage/code-desktop'
 const WIN32 = 'win32'
 const DARWIN = 'darwin'
 const IA32 = 'ia32'
@@ -20,6 +20,10 @@ const currentPlatform = platform().node
 const loadJson = function(url) {
 	return fetch(url)
 		.then(r => r.json())
+		.catch(err => {
+			console.log(err)
+			return false
+		})
 }
 
 // Get download base path based on platform and architecture
@@ -30,41 +34,44 @@ const getDownloadPath = function(platform, arch) {
 window.onload = function() {
 	let appEl = document.querySelector('#app')
 	appEl.style.display = 'flex';
-	// Select download link elements
-	let linkWin32ia32 = document.querySelector('strawbees-download-link[platform=win32][arch=ia32]')
-	let linkWin32x64 = document.querySelector('strawbees-download-link[platform=win32][arch=x64]')
-	let linkDarwinx64 = document.querySelector('strawbees-download-link[platform=darwin][arch=x64]')
-	const downloadPaths = {
-		win32_ia32: getDownloadPath(WIN32, IA32),
-		win32_x64: getDownloadPath(WIN32, X64),
-		darwin_x64: getDownloadPath(DARWIN, X64)
-	}
-	Promise.all([
-		loadJson(`${downloadPaths.win32_ia32}/latest.json`),
-		loadJson(`${downloadPaths.win32_x64}/latest.json`),
-		loadJson(`${downloadPaths.darwin_x64}/latest.json`)
-	]).then((results) => {
-		if (linkWin32ia32) {
-			if (currentPlatform.platform == WIN32 && currentPlatform.arch == IA32) {
-				linkWin32ia32.setAttribute('selected', 'selected')
+	// Select CODE download link elements
+	let codeWin32ia32 = document.querySelector('strawbees-download-link[platform=win32][arch=ia32]')
+	let codeWin32x64 = document.querySelector('strawbees-download-link[platform=win32][arch=x64]')
+	let codeDarwinx64 = document.querySelector('strawbees-download-link[platform=darwin][arch=x64]')
+	// Config file for CODE
+	const code_config = [
+		{ el:codeWin32ia32, platform: WIN32, arch: IA32 },
+		{ el: codeWin32x64, platform: WIN32, arch: X64 },
+		{ el: codeDarwinx64, platform: DARWIN, arch: X64 }
+	]
+	// Create and array of base download paths for CODE
+	const downloadPaths = code_config.map((conf) => {
+		return getDownloadPath(conf.platform, conf.arch)
+	})
+	// Array of promises for the `latest.json`
+	const manifestPromises = downloadPaths.map((url) => {
+		return loadJson(`${url}/latest.json`)
+	})
+	// Resolve all the `latest.json` promises
+	Promise.all(manifestPromises)
+	.then((results, i) => {
+		// Iterate over results and render download links accordingly
+		results.forEach((latest, i) => {
+			// Config item
+			let conf = code_config[i]
+			// If there is no manifest, it's unavailable
+			if (!latest) {
+				conf.el.setAttribute('unavailable', 'true')
+				return
 			}
-			linkWin32ia32.setAttribute('version', results[0].version)
-			linkWin32ia32.setAttribute('link', `${downloadPaths.win32_ia32}/${results[0].installer.path}`)
-		}
-		if (linkWin32x64) {
-			if (currentPlatform.platform == WIN32 && currentPlatform.arch == X64) {
-				linkWin32x64.setAttribute('selected', 'selected')
+			if (
+				currentPlatform.platform == conf.platform &&
+				currentPlatform.arch == conf.arch
+			) {
+				conf.el.setAttribute('selected', 'selected')
 			}
-			linkWin32x64.setAttribute('version', results[0].version)
-			linkWin32x64.setAttribute('link', `${downloadPaths.win32_x64}/${results[1].installer.path}`)
-		}
-		if (linkDarwinx64) {
-			if (currentPlatform.platform == DARWIN && currentPlatform.arch == X64) {
-				linkDarwinx64.setAttribute('selected', 'selected')
-			}
-			linkDarwinx64.setAttribute('version', results[0].version)
-			linkDarwinx64.setAttribute('link', `${downloadPaths.darwin_x64}/${results[2].installer.path}`)
-		}
-
+			conf.el.setAttribute('link', `${downloadPaths[i]}/${latest.installer.path}`)
+			conf.el.setAttribute('version', latest.version)
+		})
 	})
 }

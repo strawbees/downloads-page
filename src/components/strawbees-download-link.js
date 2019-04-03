@@ -2,7 +2,7 @@ import BaseElement from './base-element.js'
 
 class StrawbeesDownloadItemElement extends BaseElement {
 	static get observedAttributes() {
-		return ['platform', 'arch', 'version', 'link', 'selected'];
+		return ['platform', 'arch', 'version', 'link', 'selected', 'unavailable'];
 	}
 	template() {
 		return `
@@ -16,6 +16,7 @@ class StrawbeesDownloadItemElement extends BaseElement {
 					padding: 0.5em;
 					border: solid 0.05rem rgb(217, 217, 217);
 					min-width: 170px;
+					min-height: 135px;
 					color: rgb(153,153,153);
 					fill: rgb(153, 153, 153);
 					order: 0;
@@ -66,6 +67,11 @@ class StrawbeesDownloadItemElement extends BaseElement {
 					background-color: rgb(57, 165, 0);
 					outline: none;
 				}
+				.download-button.not-active {
+					pointer-events: none;
+					cursor: default;
+					background-color: rgb(165, 165, 165);
+				}
 				.architecture {
 					font-size: 0.8rem;
 				}
@@ -115,12 +121,14 @@ class StrawbeesDownloadItemElement extends BaseElement {
 	link() {
 		return this.get('link')
 	}
-	loading() {
-		return 'loading...'
+	unavailable() {
+		return this.get('unavailable')
 	}
 	downloadButton() {
-		if (!this.link()) {
-			return this.loading()
+		if (this.unavailable()) {
+			return '<a class="download-button not-active">Unavailable</a>'
+		} else if (!this.link()) {
+			return 'Loading...'
 		} else {
 			return `<a class="download-button" href="${this.link()}" target="_blank">Download v${this.version()}</a>`
 		}
