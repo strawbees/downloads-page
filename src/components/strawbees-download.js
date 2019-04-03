@@ -16,8 +16,16 @@ class StrawbeesDownloadElement extends BaseElement {
 					margin: 0
 				}
 				.header {
-					max-width: 25rem;
+					display: flex;
+					flex-direction: row;
+					max-width: 35rem;
 					margin-bottom: 1rem;
+				}
+				.header .icon {
+					width: 20%;
+				}
+				.header .text {
+					width: 80%;
 				}
 				.download-links {
 					display: flex;
@@ -35,12 +43,22 @@ class StrawbeesDownloadElement extends BaseElement {
 					.download-links slot {
 						flex-direction: column;
 					}
+					.header {
+						justify-content: center;
+						align-items: center;
+						flex-direction: column;
+					}
 				}
 			</style>
 			<div id="strawbees-download">
 				<div class="header">
-					<h1><slot name="title" class="test"></slot></h1>
-					<p><slot name="description"></slot></p>
+					<div class="icon">
+						<slot name="icon"></slot>
+					</div>
+					<div class="text">
+						<h1><slot name="title"></slot></h1>
+						<p><slot name="description"></slot></p>
+					</div>
 				</div>
 				<div class="download-links">
 					<slot name="links"></slot>
