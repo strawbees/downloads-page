@@ -1,0 +1,35 @@
+{
+    "name": "@strawbees/download-page",
+    "version": "0.1.0",
+    "description": "Download page for strawbees.com",
+    "main": "src/main.js",
+    "private": "true",
+    "scripts": {
+        "start": "npm run serve-src",
+        "serve-src": "http-server -c-1",
+        "serve-dist": "http-server -c-1 dist",
+        "build": "gulp"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "@babel/core": "^7.4.0",
+        "@babel/plugin-transform-reserved-words": "^7.2.0",
+        "@babel/preset-env": "^7.4.2",
+        "@webcomponents/webcomponentsjs": "^2.2.7",
+        "babel-loader": "^8.0.5",
+        "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
+        "babel-plugin-transform-es3-property-literals": "^6.22.0",
+        "babel-plugin-transform-member-expression-literals": "^6.9.4",
+        "babel-plugin-transform-property-literals": "^6.9.4",
+        "babel-polyfill": "^6.26.0",
+        "del": "^4.0.0",
+        "gulp": "^4.0.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-smoosher": "0.0.9",
+        "http-server": "^0.11.1",
+        "platform": "^1.3.5",
+        "webpack": "^4.29.6",
+        "webpack-cli": "^3.3.0",
+        "whatwg-fetch": "^3.0.0"
+    }
+}

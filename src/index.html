@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Strawbees Downloads Page</title>
+		<!-- smoosh -->
+		<link rel="stylesheet" href="./bundle.css">
+		<!-- endsmoosh -->
+	</head>
+	<body>
+		<div id="app">
+			<strawbees-download id="strawbees-code">
+				<span slot="title">
+					Download Strawbees CODE
+				</span>
+				<span slot="description">
+					Download the Strawbees CODE app to be able program anytime,
+					even wihtout an internet connection!
+				</span>
+				<strawbees-download-link slot="links" platform="win32" arch="x64"></strawbees-download-link>
+				<strawbees-download-link slot="links" platform="win32" arch="ia32"></strawbees-download-link>
+				<strawbees-download-link slot="links" platform="darwin" arch="x64"></strawbees-download-link>
+			</strawbees-download>
+		</div>
+		<!-- smoosh -->
+		<script type="text/javascript" src="./main.js"></script>
+		<!-- endsmoosh -->
+	</body>
+</html>
