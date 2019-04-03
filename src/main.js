@@ -7,7 +7,7 @@ customElements.define('strawbees-download', StrawbeesDownloadElement);
 customElements.define('strawbees-download-link', StrawbeesDownloadItemElement);
 
 // Define API endpoints
-const CODE_BASE_URL = 'https://s3.amazonaws.com/strawbees-downloads-stage/code-desktop'
+const CODE_BASE_URL = 'https://s3.amazonaws.com/strawbees-downloads-production/code-desktop'
 const WIN32 = 'win32'
 const DARWIN = 'darwin'
 const IA32 = 'ia32'
